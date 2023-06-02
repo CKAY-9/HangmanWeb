@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Geologica:wght@100;400;700;900&display=swap");
+
+:root {
+    --bg: 0, 0, 0;
+    --fg: 15, 15, 15;
+    --ffg: 50, 50, 50;
+    --text: 255, 255, 255;
+}
+
+* {
+    font-family: "Geologica", sans-serif;
+}
+
+body {
+    color: rgb(var(--text));
+    background-color: rgb(var(--bg));
+    padding: 0; margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+}
+
+.help {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.help .view {
+    z-index: 999;
+    min-width: 25vw;
+    position: absolute;
+    top: 2rem;
+    background-color: rgb(var(--fg));
+    border-radius: 10px;
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.singleLetters {
+    max-width: 15rem;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(2rem, 2rem));
+    place-content: center;
+}
+.singleLetters .letter {
+    background-color: rgb(var(--fg));
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem;
+    color: rgb(var(--text));
+    text-transform: uppercase;
+    transition: 0.25s ease all;
+}
+.singleLetters .letter:hover {
+    transform: scale(1.25);
+    cursor: pointer;
+    background-color: rgb(var(--ffg));
+}
+
+.hangman {
+    display: flex;
+    flex-direction: column;
+    margin: 3rem 0;
+    font-weight: 900;
+    font-size: 2rem;
+}
