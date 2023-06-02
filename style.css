@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Geologica:wght@100;400;700;900&display=swap");
 
 :root {
-    --bg: 0, 0, 0;
-    --fg: 15, 15, 15;
-    --ffg: 50, 50, 50;
-    --text: 255, 255, 255;
+    --bg: 255, 255, 255;
+    --fg: 150, 200, 225;
+    --ffg: 150, 250, 150;
+    --text: 0, 0, 0;
 }
 
 * {
@@ -15,7 +15,7 @@ body {
     color: rgb(var(--text));
     background-color: rgb(var(--bg));
     padding: 0; margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .container {
@@ -37,7 +37,7 @@ body {
     z-index: 999;
     min-width: 25vw;
     position: absolute;
-    top: 2rem;
+    top: 3rem;
     background-color: rgb(var(--fg));
     border-radius: 10px;
     padding: 1rem;
@@ -54,8 +54,29 @@ body {
     justify-content: center;
 }
 
+input, button {
+    background-color: rgb(var(--fg));
+    color: rgb(var(--text));
+    border: none;
+    min-width: 15rem;
+    padding: 0.5rem;
+}
+input:focus {
+    outline: none;
+}
+button {
+    min-width: fit-content;
+}
+button:hover {
+    cursor: pointer;
+}
+
+.closeMisc {
+    width: fit-content;
+}
+
 .singleLetters {
-    max-width: 15rem;
+    max-width: 25rem;
     display: grid;
     gap: 0.75rem;
     grid-template-columns: repeat(auto-fit, minmax(2rem, 2rem));

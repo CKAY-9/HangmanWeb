@@ -13,16 +13,18 @@
         <button onclick="showAbout()">About</button>
         
         <div class="view" id="words">
+            <button class="closeMisc" onclick="closeMisc()">X</button>
             <h2>Words</h2>
             <div id="possibleWords">
                 
             </div>
         </div>
         <div class="view" id="about">
+            <button class="closeMisc" onclick="closeMisc()">X</button>
             <h2>About</h2>
             <h3>Developed by Cameron A.</h3>
-            <a href="https://github.com/Camerxxn/Hangman-Game" target="_blank">CLI Version</a>
-            <a href="https://github.com/Camerxxn/Hangman-Web" target="_blank">Web Version</a>
+            <a href="https://github.com/Camerxxn/HangmanGame" target="_blank">CLI Version</a>
+            <a href="https://github.com/Camerxxn/HangmanWeb" target="_blank">Web Version</a>
         </div>
     </div>
     <main class="container">
@@ -58,8 +60,8 @@
     
             <div class="input">
                 <div class="fullWord">
-                    <input type="text" name="fullWord" id="fullWord">
-                    <button>Guess</button>
+                    <input placeholder="Manual Input or Full Word" type="text" name="fullWord" id="manualInput">
+                    <button onclick="guess()">Guess</button>
                 </div>
                 <div class="singleLetters" id="letters">
                     

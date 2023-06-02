@@ -5,9 +5,20 @@ const aboutElm = document.getElementById("about");
 wordsElm.style.display = "none";
 aboutElm.style.display = "none";
 
+document.getElementById("manualInput").addEventListener(("keydown"), (ev) => {
+    if (ev.key === "Enter") {
+        guess();
+    }
+})
+
 const gameOver = (win) => {
     gameOverElm.style.display = "flex";
     gameElm.style.display = "none";
+
+    for (const part of bodyParts) {
+        part.style.color = "rgb(var(--text))";
+        part.style.opacity = "0.25";
+    }
     
     document.getElementById("overCondition").innerText = win ? "YOU WON!" : "You Lost!";
     document.getElementById("completionCount").innerText = `You have completed ${completed}/${words.length} words`;
@@ -27,7 +38,7 @@ const showWords = () => {
     for (const w of words) {
         document.getElementById("possibleWords").innerHTML += `
             <div>
-                ${w.word}, Completed: <span style="color: ${completed ? "green" : "red"}">${completed ? "✓" : "✗"}<span>
+                ${w.word}, Completed: <span style="color: ${w.completed ? "green" : "red"}">${w.completed ? "✓" : "✗"}<span>
             </div>
         `;
     }
@@ -38,12 +49,17 @@ const showAbout = () => {
     aboutElm.style.display = "flex";
 }
 
+const closeMisc = () => {
+    wordsElm.style.display = "none";
+    aboutElm.style.display = "none";
+}
+
 // Fill letters element
 const letters = document.getElementById("letters");
 const possibleLetters = "abcdefghijklmnopqrstuvwxyz";
 for (const l of possibleLetters) {
     letters.innerHTML += `
-        <button onclick="guessLetter('${l}')" class="letter">${l}</button>
+        <button onclick="guess('${l}')" class="letter">${l}</button>
     `;
 }
 
@@ -95,34 +111,50 @@ const correctElm = document.getElementById("correctElm");
 const incorrectElm = document.getElementById("incorrectElm");
 const hintElm = document.getElementById("hint");
 
-const guessLetter = (guess) => {
+const guess = (guess) => {
+    if (guess === undefined) {
+        guess = document.getElementById("manualInput").value;
+        document.getElementById("manualInput").value = "";
+    }
+
     if (cLetters.includes(guess.toLowerCase()) || wLetters.includes(guess.toLowerCase())) {
         game();
         return;
     }
-    if (!word.word.toLowerCase().includes(guess.toLowerCase())) {
-        if (incorrectGuesses >= 8) {
-            gameOver(false);
-            return;
-        }
-
-        bodyParts[incorrectGuesses].style.opacity = "1";
-        bodyParts[incorrectGuesses].style.color = "red";
-        incorrectGuesses++;
-        wLetters.push(guess);
-    } else {
-        for (let i = 0; i < word.word.length; i++) {
-            if (word.word[i].toLowerCase() === guess.toLowerCase()) {
-                cLetters[i] = word.word[i].toLowerCase();
+    if (guess.length === 1) {
+        if (!word.word.toLowerCase().includes(guess.toLowerCase())) {
+            if (incorrectGuesses >= 8) {
+                gameOver(false);
+                return;
             }
-        } 
-
-        let fString = "";
-        for (let i = 0; i < cLetters.length; i++) {
-            fString += cLetters[i].toLowerCase();
+    
+            bodyParts[incorrectGuesses].style.opacity = "1";
+            bodyParts[incorrectGuesses].style.color = "red";
+            incorrectGuesses++;
+            wLetters.push(guess);
+        } else {
+            for (let i = 0; i < word.word.length; i++) {
+                if (word.word[i].toLowerCase() === guess.toLowerCase()) {
+                    cLetters[i] = word.word[i].toLowerCase();
+                }
+            } 
+    
+            let fString = "";
+            for (let i = 0; i < cLetters.length; i++) {
+                fString += cLetters[i].toLowerCase();
+            }
+    
+            correct = (fString.toLowerCase() === word.word.toLowerCase());
         }
-
-        correct = (fString.toLowerCase() === word.word.toLowerCase());
+    } else {
+        if (guess.toLowerCase() === word.word.toLowerCase()) {
+            correct = true;
+        } else {
+            bodyParts[incorrectGuesses].style.opacity = "1";
+            bodyParts[incorrectGuesses].style.color = "red";
+            incorrectGuesses++;
+            wLetters.push(guess);
+        }
     }
 
     if (!correct) {
